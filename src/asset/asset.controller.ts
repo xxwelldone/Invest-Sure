@@ -6,37 +6,33 @@ import {
   Param,
   Delete,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { AssetService } from './asset.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
 import { UpdateAssetDto } from './dto/update-asset.dto';
+import { Asset } from './entities/asset.entity';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('asset')
 export class AssetController {
   constructor(private readonly assetService: AssetService) {}
 
   @Post()
-  async create(@Body() createAssetDto: CreateAssetDto) {
+  async create(
+    @Body() createAssetDto: CreateAssetDto,
+  ): Promise<Asset | undefined> {
     return await this.assetService.create(createAssetDto);
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<Asset[] | undefined> {
     return this.assetService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.assetService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAssetDto: UpdateAssetDto) {
-    return this.assetService.update(+id, updateAssetDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.assetService.remove(+id);
+  findOne(@Param('id') id: string): Promise<Asset | undefined> {
+    return this.assetService.findOne(id);
   }
 }

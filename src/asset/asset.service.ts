@@ -32,15 +32,14 @@ export class AssetService {
     }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} asset`;
-  }
-
-  update(id: number, updateAssetDto: UpdateAssetDto) {
-    return `This action updates a #${id} asset`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} asset`;
+  async findOne(id: string): Promise<Asset | undefined> {
+    try {
+      const found: Asset = await this.assetRepository.findOneOrFail({
+        where: { id: id },
+      });
+      return found;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
