@@ -9,5 +9,6 @@ import { InvestorModule } from 'src/investor/investor.module';
   imports: [TypeOrmModule.forFeature([Asset]), InvestorModule],
   controllers: [AssetController],
   providers: [AssetService],
+  exports: [AssetService],
 })
 export class AssetModule {}

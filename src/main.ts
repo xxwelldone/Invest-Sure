@@ -9,10 +9,20 @@ async function bootstrap() {
     .setTitle('Invest Sure')
     .setDescription('')
     .setVersion('1.0')
-    .addTag('assets')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Example: Bearer 9821hnoias61kew7',
+      },
+      'access-token',
+    )
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

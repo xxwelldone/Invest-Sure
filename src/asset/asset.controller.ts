@@ -10,11 +10,12 @@ import {
 } from '@nestjs/common';
 import { AssetService } from './asset.service';
 import { CreateAssetDto } from './dto/create-asset.dto';
-import { UpdateAssetDto } from './dto/update-asset.dto';
 import { Asset } from './entities/asset.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @UseGuards(AuthGuard)
+@ApiBearerAuth('access-token')
 @Controller('asset')
 export class AssetController {
   constructor(private readonly assetService: AssetService) {}
@@ -32,7 +33,7 @@ export class AssetController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<Asset | undefined> {
+  findOne(@Param('id') id: string): Promise<Asset | null> {
     return this.assetService.findOne(id);
   }
 }

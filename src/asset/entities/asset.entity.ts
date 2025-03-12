@@ -5,12 +5,17 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CreateAssetDto } from '../dto/create-asset.dto';
+import { IsISO4217CurrencyCode } from 'class-validator';
 
 @Entity({ name: 'asset' })
 export class Asset {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
   public id: string;
-  @CreateDateColumn({ name: 'createdat' })
+  @CreateDateColumn({
+    name: 'createdat',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   public CreatedAt: Date;
   @Column({ name: 'assetname', length: 40, nullable: false })
   public AssetName: string;

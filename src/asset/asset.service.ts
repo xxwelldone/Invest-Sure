@@ -32,14 +32,10 @@ export class AssetService {
     }
   }
 
-  async findOne(id: string): Promise<Asset | undefined> {
-    try {
-      const found: Asset = await this.assetRepository.findOneOrFail({
-        where: { id: id },
-      });
-      return found;
-    } catch (error) {
-      console.error(error);
-    }
+  async findOne(id: string): Promise<Asset | null> {
+    const found: Asset | null = await this.assetRepository.findOneBy({
+      id: id,
+    });
+    return found;
   }
 }

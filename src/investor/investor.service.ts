@@ -29,10 +29,6 @@ export class InvestorService {
     }
   }
 
-  findAll() {
-    return `This action returns all investor`;
-  }
-
   async findByEmail(email: string): Promise<Investor | null> {
     const investor = await this.investorRepo.findOneBy({
       email: email,
@@ -40,15 +36,8 @@ export class InvestorService {
     return investor;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} investor`;
-  }
-
-  update(id: number, updateInvestorDto: UpdateInvestorDto) {
-    return `This action updates a #${id} investor`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} investor`;
+  async findOneById(id: string) {
+    const investor = await this.investorRepo.findOneBy({ id: id });
+    return investor;
   }
 }

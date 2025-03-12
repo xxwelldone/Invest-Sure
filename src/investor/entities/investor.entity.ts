@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CreateInvestorDto } from '../dto/create-investor.dto';
-import { IsNotEmpty } from 'class-validator';
 
 @Entity('investor')
 export class Investor {
@@ -21,6 +20,8 @@ export class Investor {
   public email: string;
   @Column({ name: 'password', nullable: false })
   public password: string;
+  @CreateDateColumn({ name: 'createdat' })
+  public createdAt: Date;
 
   mappingFromCreateDTO(createDto: CreateInvestorDto, hashedPw: string) {
     this.name = createDto.name;
@@ -28,5 +29,6 @@ export class Investor {
     this.birthdate = createDto.birthdate;
     this.email = createDto.email;
     this.password = hashedPw;
+    this.createdAt = new Date();
   }
 }

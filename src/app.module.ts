@@ -5,6 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { InvestorModule } from './investor/investor.module';
 import { AuthModule } from './auth/auth.module';
+import { AccountModule } from './account/account.module';
+import { InvestmentModule } from './investment/investment.module';
+import { ExchangeApiService } from './exchange-api/exchange-api.service';
+import { ExchangeApiModule } from './exchange-api/exchange-api.module';
 
 @Module({
   imports: [
@@ -18,8 +22,12 @@ import { AuthModule } from './auth/auth.module';
     }),
     InvestorModule,
     AuthModule,
+    AccountModule,
+    InvestmentModule,
+    ExchangeApiModule,
   ],
   controllers: [],
   providers: [TypeormService],
+  exports: [],
 })
 export class AppModule {}

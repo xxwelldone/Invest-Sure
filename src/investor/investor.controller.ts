@@ -1,20 +1,11 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { InvestorService } from './investor.service';
 import { CreateInvestorDto } from './dto/create-investor.dto';
-import { UpdateInvestorDto } from './dto/update-investor.dto';
 import { Hasher } from 'src/pipes/Hasher';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
-@UseGuards(AuthGuard)
 @Controller('investor')
 export class InvestorController {
   constructor(private readonly investorService: InvestorService) {}
@@ -27,26 +18,12 @@ export class InvestorController {
     return this.investorService.create(createInvestorDto, encrypted);
   }
 
-  @Get()
-  findAll() {
-    return this.investorService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.investorService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateInvestorDto: UpdateInvestorDto,
-  ) {
-    return this.investorService.update(+id, updateInvestorDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.investorService.remove(+id);
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth('access-token')
+  @Get('myinfo')
+  async findMyData(@Req() req: AuthRequestDto) {
+    const { id } = req.user;
+    const investor = await this.investorService.findOneById(id);
+    return investor;
   }
 }
