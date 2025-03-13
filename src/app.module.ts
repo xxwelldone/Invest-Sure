@@ -9,6 +9,8 @@ import { AccountModule } from './account/account.module';
 import { InvestmentModule } from './investment/investment.module';
 import { ExchangeApiService } from './exchange-api/exchange-api.service';
 import { ExchangeApiModule } from './exchange-api/exchange-api.module';
+import { APP_FILTER } from '@nestjs/core';
+import { ExceptionHandlerFilter } from './exception-handler/exception-handler.filter';
 
 @Module({
   imports: [
@@ -27,7 +29,10 @@ import { ExchangeApiModule } from './exchange-api/exchange-api.module';
     ExchangeApiModule,
   ],
   controllers: [],
-  providers: [TypeormService],
+  providers: [
+    TypeormService,
+    { provide: APP_FILTER, useClass: ExceptionHandlerFilter },
+  ],
   exports: [],
 })
 export class AppModule {}
