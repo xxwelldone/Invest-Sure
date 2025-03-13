@@ -27,29 +27,12 @@ export class InvestmentController {
     @Body() createInvestmentDto: CreateInvestmentDto,
     @Req() req: AuthRequestDto,
   ) {
-    return this.investmentService.create(createInvestmentDto, req);
+    const id: string = req.user.id;
+    return this.investmentService.create(createInvestmentDto, id);
   }
-
   @Get()
-  findAll() {
-    return this.investmentService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.investmentService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateInvestmentDto: UpdateInvestmentDto,
-  ) {
-    return this.investmentService.update(+id, updateInvestmentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.investmentService.remove(+id);
+  async GetAll(@Req() req: AuthRequestDto) {
+    const { id } = req.user;
+    return await this.investmentService.findAll(id);
   }
 }

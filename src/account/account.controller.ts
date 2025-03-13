@@ -23,8 +23,15 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Post()
-  async create(@Body() createAccountDto: CreateAccountDto) {
-    const saved = await this.accountService.create(createAccountDto);
+  async create(
+    @Body() createAccountDto: CreateAccountDto,
+    @Req() req: AuthRequestDto,
+  ) {
+    const investorId = req.user.id;
+    const saved = await this.accountService.create(
+      createAccountDto,
+      investorId,
+    );
     return saved;
   }
 

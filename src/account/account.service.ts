@@ -11,9 +11,9 @@ export class AccountService {
     private readonly accountRepo: Repository<Account>,
   ) {}
 
-  async create(createAccountDto: CreateAccountDto) {
+  async create(createAccountDto: CreateAccountDto, investorId: string) {
     const accountMapped = new Account();
-    accountMapped.mappingFromCreateDTO(createAccountDto);
+    accountMapped.mappingFromCreateDTO(createAccountDto, investorId);
     const saved: Account = await this.accountRepo.save(accountMapped);
     return saved;
   }
@@ -38,5 +38,6 @@ export class AccountService {
       throw new Error('Conta não encontrada');
     }
     Object.assign(foundAccount, account);
+    await this.accountRepo.save(foundAccount);
   }
 }

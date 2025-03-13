@@ -36,7 +36,4 @@ export class CreateAccountDto {
   @IsNumber()
   @Min(0.0)
   public amount: number;
-  @ApiProperty({ required: true })
-  @IsNotEmpty({ message: 'Você deve informar seu ID' })
-  public investorId: string;
 }

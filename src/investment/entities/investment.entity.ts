@@ -17,10 +17,12 @@ export class Investment {
   public assetId: string;
   @Column({ nullable: false })
   public quantity: number;
+  @Column({ name: 'account_id', nullable: false })
+  public accountid: string;
   @Column({ name: 'totalamount', nullable: false })
   public totalAmount: number;
   @Column({ name: 'currency', nullable: false, length: 5 })
   public currency: string;
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'createdat', nullable: false })
   public createdAt: Date;
 }

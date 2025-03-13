@@ -35,7 +35,10 @@ export class Account {
       throw new Error('Operação não autorizada');
     }
   }
-  public mappingFromCreateDTO(createAccountDto: CreateAccountDto) {
+  public mappingFromCreateDTO(
+    createAccountDto: CreateAccountDto,
+    investorId: string,
+  ) {
     this.accountAgency = createAccountDto.accountAgency;
     this.accountNumber = createAccountDto.accountNumber;
     this.bank = createAccountDto.bank;
@@ -47,7 +50,7 @@ export class Account {
       this.amount = createAccountDto.amount;
     }
     this.currency = createAccountDto.currency;
-    this.investorId = createAccountDto.investorId;
+    this.investorId = investorId;
     this.createdAt = new Date();
   }
 }

@@ -29,15 +29,23 @@ export class InvestorService {
     }
   }
 
-  async findByEmail(email: string): Promise<Investor | null> {
-    const investor = await this.investorRepo.findOneBy({
+  async findByEmail(email: string): Promise<Investor> {
+    const investor: Investor | null = await this.investorRepo.findOneBy({
       email: email,
     });
+    if (investor === null) {
+      throw error('Usuário não encontrado');
+    }
     return investor;
   }
 
   async findOneById(id: string) {
-    const investor = await this.investorRepo.findOneBy({ id: id });
-    return investor;
+    const investor: Investor | null = await this.investorRepo.findOneBy({
+      id: id,
+    });
+    if (investor === null) {
+      throw error('Usuário não encontrado');
+    }
+    return new ResponseInvestorDto(investor);
   }
 }

@@ -4,7 +4,7 @@ import { UpdateInvestmentDto } from './dto/update-investment.dto';
 import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Investment } from './entities/investment.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { AccountService } from 'src/account/account.service';
 import { Account } from 'src/account/entities/account.entity';
 import { Asset } from 'src/asset/entities/asset.entity';
@@ -23,9 +23,8 @@ export class InvestmentService {
   ) {}
   async create(
     createInvestmentDto: CreateInvestmentDto,
-    req: AuthRequestDto,
+    id: string,
   ): Promise<Investment> {
-    const id: string = req.user.id;
     const accounts: Account[] =
       await this.accountService.findAllByInvestorId(id);
     const index: number = accounts.findIndex(
@@ -59,28 +58,22 @@ export class InvestmentService {
       investment.assetId = asset.id;
       investment.assetName = asset.AssetName;
       investment.createdAt = new Date();
+      investment.accountid = account.id;
       investment.currency = asset.Currency;
       investment.investimentType = asset.TypeAsset;
       investment.quantity = createInvestmentDto.qnt;
       investment.totalAmount = amount;
-      const investmentCreated = await this.investmentRepo.create(investment);
+      const investmentCreated = await this.investmentRepo.save(investment);
       return investmentCreated;
     }
   }
+  async findAll(investorId: string): Promise<Investment[]> {
+    const accounts: Account[] =
+      await this.accountService.findAllByInvestorId(investorId);
 
-  findAll() {
-    return `This action returns all investment`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} investment`;
-  }
-
-  update(id: number, updateInvestmentDto: UpdateInvestmentDto) {
-    return `This action updates a #${id} investment`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} investment`;
+    const accountIds: string[] = accounts.map((account) => account.id);
+    return await this.investmentRepo.find({
+      where: { accountid: In(accountIds) },
+    });
   }
 }
