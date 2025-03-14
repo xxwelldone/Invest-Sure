@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { ConsoleLogger, Module } from '@nestjs/common';
 import { AssetModule } from './asset/asset.module';
 import { TypeormService } from './typeorm/typeorm.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,8 +9,9 @@ import { AccountModule } from './account/account.module';
 import { InvestmentModule } from './investment/investment.module';
 import { ExchangeApiService } from './exchange-api/exchange-api.service';
 import { ExchangeApiModule } from './exchange-api/exchange-api.module';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { ExceptionHandlerFilter } from './exception-handler/exception-handler.filter';
+import { LoggerInterceptor } from './logger/logger.interceptor';
 
 @Module({
   imports: [
@@ -32,6 +33,8 @@ import { ExceptionHandlerFilter } from './exception-handler/exception-handler.fi
   providers: [
     TypeormService,
     { provide: APP_FILTER, useClass: ExceptionHandlerFilter },
+    { provide: APP_INTERCEPTOR, useClass: LoggerInterceptor },
+    ConsoleLogger,
   ],
   exports: [],
 })
