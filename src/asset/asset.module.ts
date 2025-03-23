@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AssetService } from './asset.service';
-import { AssetController } from './asset.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { InvestorModule } from '../investor/investor.module';
+import { AssetController } from './asset.controller';
+import { AssetService } from './asset.service';
 import { Asset } from './entities/asset.entity';
-import { InvestorModule } from 'src/investor/investor.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Asset]), InvestorModule],

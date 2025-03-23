@@ -4,6 +4,7 @@ import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { InvestorModule } from 'src/investor/investor.module';
 import * as dotenv from 'dotenv';
+import { AuthGuard } from './auth.guard';
 
 dotenv.config();
 @Module({

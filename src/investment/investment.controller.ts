@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { InvestmentService } from './investment.service';
 import { CreateInvestmentDto } from './dto/create-investment.dto';
-import { UpdateInvestmentDto } from './dto/update-investment.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
+
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { AuthRequestDto } from '../auth/dto/AuthRequest.dto';
 
 @Controller('investment')
 @UseGuards(AuthGuard)

@@ -3,11 +3,10 @@ import { InvestmentService } from './investment.service';
 import { InvestmentController } from './investment.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Investment } from './entities/investment.entity';
-import { InvestorModule } from 'src/investor/investor.module';
-import { AccountModule } from 'src/account/account.module';
-import { AssetModule } from 'src/asset/asset.module';
-import { AppModule } from 'src/app.module';
-import { ExchangeApiModule } from 'src/exchange-api/exchange-api.module';
+import { AccountModule } from '../account/account.module';
+import { AssetModule } from '../asset/asset.module';
+import { ExchangeApiModule } from '../exchange-api/exchange-api.module';
+import { InvestorModule } from '../investor/investor.module';
 
 @Module({
   imports: [

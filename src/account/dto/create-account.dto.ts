@@ -1,15 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 import {
+  IsNotEmpty,
+  IsString,
   IsAlpha,
   IsISO4217CurrencyCode,
-  IsNotEmpty,
-  IsNumber,
   IsOptional,
-  IsPositive,
-  IsString,
+  IsNumber,
   Min,
-  MIN,
 } from 'class-validator';
 
 export class CreateAccountDto {

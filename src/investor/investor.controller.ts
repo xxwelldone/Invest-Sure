@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { InvestorService } from './investor.service';
 import { CreateInvestorDto } from './dto/create-investor.dto';
-import { Hasher } from 'src/pipes/Hasher';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
+import { Hasher } from '../pipes/Hasher';
+import { AuthGuard } from '../auth/auth.guard';
+import { AuthRequestDto } from '../auth/dto/AuthRequest.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('investor')

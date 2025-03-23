@@ -7,8 +7,8 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { AuthDto } from './dto/auth.dto';
 import { Request } from 'express';
-import { InvestorService } from 'src/investor/investor.service';
 import { AuthRequestDto } from './dto/AuthRequest.dto';
+import { InvestorService } from '../investor/investor.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

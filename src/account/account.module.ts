@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AccountService } from './account.service';
-import { AccountController } from './account.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { InvestorModule } from '../investor/investor.module';
+import { AccountController } from './account.controller';
+import { AccountService } from './account.service';
 import { Account } from './entities/account.entity';
-import { InvestorModule } from 'src/investor/investor.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Account]), InvestorModule],

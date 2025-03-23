@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { CreateInvestmentDto } from './dto/create-investment.dto';
-import { UpdateInvestmentDto } from './dto/update-investment.dto';
-import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Investment } from './entities/investment.entity';
 import { In, Repository } from 'typeorm';
-import { AccountService } from 'src/account/account.service';
-import { Account } from 'src/account/entities/account.entity';
-import { Asset } from 'src/asset/entities/asset.entity';
-import { AssetService } from 'src/asset/asset.service';
 import { error } from 'console';
-import { ExchangeApiService } from 'src/exchange-api/exchange-api.service';
+import { AccountService } from '../account/account.service';
+import { Account } from '../account/entities/account.entity';
+import { AssetService } from '../asset/asset.service';
+import { Asset } from '../asset/entities/asset.entity';
+import { ExchangeApiService } from '../exchange-api/exchange-api.service';
 
 @Injectable()
 export class InvestmentService {

@@ -6,7 +6,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
-import { AuthRequestDto } from 'src/auth/dto/AuthRequest.dto';
+import { AuthRequestDto } from '../auth/dto/AuthRequest.dto';
 
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {

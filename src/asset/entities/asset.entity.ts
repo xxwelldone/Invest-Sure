@@ -5,7 +5,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CreateAssetDto } from '../dto/create-asset.dto';
-import { IsISO4217CurrencyCode } from 'class-validator';
 
 @Entity({ name: 'asset' })
 export class Asset {
